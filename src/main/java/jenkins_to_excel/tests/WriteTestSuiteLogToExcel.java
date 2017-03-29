@@ -11,7 +11,7 @@ public class WriteTestSuiteLogToExcel extends BaseTest{
 
 	@Test
 	public void writeToExcelTest(){
-		baseStep.goToTestSuitePage();
+		baseStep.goToTestSuitePage().writeRusultToExcel();
 		
 	}
 

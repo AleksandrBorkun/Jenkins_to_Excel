@@ -15,7 +15,7 @@ import jenkins_to_excel.steps.BaseStep;
 public abstract class BaseTest {
 
 	protected WebDriver driver;
-	BaseStep baseStep;
+	protected BaseStep baseStep;
 	
 	@BeforeMethod
 	public void setUp(){

@@ -9,31 +9,23 @@ import org.openqa.selenium.support.FindBys;
  * 	Created by Oleksandr_Borkun 3/21/2017 
  */
 
+import jenkins_to_excel.entity.ErrorLog;
 
-public class TestSuiteLogPage extends BasePage{
-	
-	@FindBys(@FindBy(xpath = "//table[@class = 'pane sortable bigtable']"))
-	private List<WebElement> tablesWithResult;
+public class TestSuiteLogPage extends BasePage {
+
+	@FindBys(@FindBy(xpath = "//table/following::node()/tr//td[@class='pane']"))
+	private List<WebElement> tableRows;
 
 	@FindBys(@FindBy(xpath = "//table/following::node()/img[@class = 'icon-document-add icon-sm']"))
-	List <WebElement> img;
-	
-	public void getValueFromTables(){
-		
-		for(WebElement plus: img){
-			wait.magicWaiter();
-			wait.waitForElementAppearing(plus);
-			wait.waitForElementIsClickable(plus);
-			plus.click();
-			
-			
-			/*
-			 * 
-			 * some code here 
-			 * 
-			 */
-		}
-				
+	List<WebElement> plusButtonsList;
+
+	public void getValueFromTables() {
+
+		jsExecutor.clickForSubElement(plusButtonsList); // all pluses click
+		wait.magicWaiter(); // wait while loading indicator disappearing
+
+		webElementConverter.prepareForWriting(tableRows); // add information about every failed case to list
+
 	}
-	
+
 }

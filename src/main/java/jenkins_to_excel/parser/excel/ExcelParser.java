@@ -32,11 +32,14 @@ public class ExcelParser {
 	private HSSFRow row;
 	
 	
-	public void writeExcel(List<ErrorLog> list){
-		
+	public void writeExcel(List<ErrorLog> list, String testSuiteName){
+		 
+			createRow(0);
+			addTwoValueInExcel(testSuiteName, Integer.toString(list.size()));
+			
 		for(int i = 0; i < list.size(); i++){
-			createRow(i);
-			firstValue(list.get(i).getTestCaseName(), list.get(i).getErrorMsg());			
+			createRow(i+1);
+			addTwoValueInExcel(list.get(i).getTestCaseName(), list.get(i).getErrorMsg());			
 		}
 		
 		writeDataToFile(createFile());
@@ -87,7 +90,8 @@ public class ExcelParser {
 		return getRow().createCell(2);		
 	}
 	
-	private void firstValue(String key, String value){		
+
+	private void addTwoValueInExcel(String key, String value){		
 		createFirstCell().setCellValue(key);
 		createSecondCell().setCellValue(value);				
 	}
