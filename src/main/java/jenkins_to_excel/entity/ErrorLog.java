@@ -8,7 +8,21 @@ public class ErrorLog {
 	
 	private String testCaseName;
 	private String errorMsg;
-
+	private String testSuiteName;
+	private int valueOfFallingTest;
+	
+	public int getValueOfFallingTest() {
+		return valueOfFallingTest;
+	}
+	public void setValueOfFallingTest(int valueOfFallingTest) {
+		this.valueOfFallingTest = valueOfFallingTest;
+	}
+	public String getTestSuiteName() {
+		return testSuiteName;
+	}
+	public void setTestSuiteName(String testSuiteName) {
+		this.testSuiteName = testSuiteName;
+	}
 	public String getTestCaseName() {
 		return testCaseName;
 	}

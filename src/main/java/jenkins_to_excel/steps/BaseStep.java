@@ -18,33 +18,45 @@ public class BaseStep {
 	static final Logger log = LogManager.getRootLogger();
 	final WebDriver driver;
 	private BasePage basePage;
-	private String name = "Flintstones_Attendance_FAPControl_develop_soapui"; // to property or excel
+	private String name; 														// to
+																				// property
+																				// or
+																				// excel
 	TestSuiteLogPage testsuitePage;
 	ExcelParser parser;
-	
-	public BaseStep(WebDriver driver){
+	boolean isFalliedTestsAppearing;
+
+	public BaseStep(WebDriver driver) {
 		this.driver = driver;
 		basePage = new BasePage();
 		testsuitePage = new TestSuiteLogPage();
 		parser = new ExcelParser();
 	}
-	
-	public BaseStep goToTestSuitePage(){			//move to new step class
-		
-		log.info("open TestSuiteName page ("+name+")");
-		basePage.goToTestSuitePage();
-		
-		log.info("try to click all pluses");
-		testsuitePage.getValueFromTables();
-		
+
+	public void getJobsName() {
+		log.info("Get Jobs Name for Data Provider");
+		basePage.getJobsName();
+	}
+
+	public BaseStep goToTestSuitePage(String jobName) { // move to new step
+		this.name = jobName;												// class
+
+		log.info("open TestSuiteName page " + jobName);
+		isFalliedTestsAppearing = basePage.goToTestSuitePage(jobName);
+
+		if (isFalliedTestsAppearing) {
+			log.info("try to click all pluses");
+			testsuitePage.getValueFromTables();
+		} else {
+			return this;
+		}
 		return this;
 	}
-	
-	public void writeRusultToExcel(){
-		
+
+	public void writeRusultToExcel() {
+
 		parser.writeExcel(ErrorList.getErrorList(), name);
-		
+
 	}
-	
-	
+
 }

@@ -49,6 +49,8 @@ public class FromStringToLog {
 			}
 		}
 
+		ErrorList.getErrorList().get(0).setValueOfFallingTest(ErrorList.getErrorList().size()); // need to somehow modify it
+
 	}
 
 	private void setErrorLog(String testCaseName, String errorMsg) {

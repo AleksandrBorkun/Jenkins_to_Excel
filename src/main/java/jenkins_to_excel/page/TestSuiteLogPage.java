@@ -9,7 +9,6 @@ import org.openqa.selenium.support.FindBys;
  * 	Created by Oleksandr_Borkun 3/21/2017 
  */
 
-import jenkins_to_excel.entity.ErrorLog;
 
 public class TestSuiteLogPage extends BasePage {
 

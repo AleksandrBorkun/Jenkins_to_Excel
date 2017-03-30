@@ -2,6 +2,8 @@ package jenkins_to_excel.tests;
 
 import org.testng.annotations.Test;
 
+import jenkins_to_excel.tests.dataProvider.DataProvederForWritingLog;
+
 public class WriteTestSuiteLogToExcel extends BaseTest{
 
 	/*
@@ -9,9 +11,9 @@ public class WriteTestSuiteLogToExcel extends BaseTest{
 	 */
 
 
-	@Test
-	public void writeToExcelTest(){
-		baseStep.goToTestSuitePage().writeRusultToExcel();
+	@Test(dataProviderClass = DataProvederForWritingLog.class, dataProvider = "logToExcel")
+	public void writeToExcelTest(String jobName){
+		baseStep.goToTestSuitePage(jobName).writeRusultToExcel();
 		
 	}
 

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -24,25 +23,23 @@ import jenkins_to_excel.entity.ErrorLog;
  */
 public class ExcelParser {
 
-	
-	private ErrorLog errorLog;
+
 	private HSSFWorkbook workBook = new HSSFWorkbook();
-	private HSSFSheet sheet = workBook.createSheet();
-	private int lastRowNum = sheet.getLastRowNum();
+	private HSSFSheet sheet;
 	private HSSFRow row;
 	
 	
 	public void writeExcel(List<ErrorLog> list, String testSuiteName){
-		 
+		 	this.sheet = workBook.createSheet(testSuiteName);
 			createRow(0);
-			addTwoValueInExcel(testSuiteName, Integer.toString(list.size()));
+			addTwoValueInExcel(testSuiteName, Integer.toString(list.get(0).getValueOfFallingTest()));
 			
 		for(int i = 0; i < list.size(); i++){
 			createRow(i+1);
 			addTwoValueInExcel(list.get(i).getTestCaseName(), list.get(i).getErrorMsg());			
 		}
 		
-		writeDataToFile(createFile());
+		writeDataToFile();
 		
 		try {
 			workBook.close();
@@ -58,11 +55,11 @@ public class ExcelParser {
 		return new File("src\\main\\resources\\excelReport2.xls");
 	}
 	
-	private void writeDataToFile(File excelReport){
+	private void writeDataToFile(){
 		
 		try {
 			
-			FileOutputStream writer = new FileOutputStream("src\\main\\resources\\excelReport2.xls", false);
+			FileOutputStream writer = new FileOutputStream("src\\main\\resources\\excelReport2.xls", true);
 			workBook.write(writer);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
