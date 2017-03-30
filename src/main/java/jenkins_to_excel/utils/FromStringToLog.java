@@ -1,5 +1,6 @@
 package jenkins_to_excel.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -33,7 +34,9 @@ public class FromStringToLog {
 	public void prepareForWriting(List<WebElement> webElementsWithErrorLog) {
 
 		/// Here must be a code of getting testCaseName and errorMsg from a log
-
+		ErrorList.errorList = null;
+		ErrorList.errorList = new ArrayList();
+		
 		for (int i = 0; i < webElementsWithErrorLog.size(); i++) {
 
 			log = webElementsWithErrorLog.get(i).getText();
@@ -49,8 +52,8 @@ public class FromStringToLog {
 			}
 		}
 
-		ErrorList.getErrorList().get(0).setValueOfFallingTest(ErrorList.getErrorList().size()); // need to somehow modify it
-
+		ErrorList.errorList.get(0).setValueOfFallingTest(ErrorList.errorList.size()); // need to somehow modify it
+		
 	}
 
 	private void setErrorLog(String testCaseName, String errorMsg) {

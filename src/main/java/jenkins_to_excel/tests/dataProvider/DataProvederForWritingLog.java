@@ -16,9 +16,9 @@ public class DataProvederForWritingLog {
 	@DataProvider(name = "logToExcel")
 	public Object[][] logToExcel() {
 
-		Object[][] obj = new Object[2][1];
+		Object[][] obj = new Object[3][1];
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			obj[i][0] = jobsName.get(i);
 		}
 

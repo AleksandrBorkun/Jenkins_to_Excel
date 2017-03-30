@@ -33,6 +33,12 @@ public class BaseStep {
 		parser = new ExcelParser();
 	}
 
+	public void openLastJob(){
+		log.info("Open Last Job");
+		basePage.openLastJob();
+		
+	}
+	
 	public void getJobsName() {
 		log.info("Get Jobs Name for Data Provider");
 		basePage.getJobsName();

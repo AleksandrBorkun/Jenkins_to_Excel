@@ -23,42 +23,41 @@ import jenkins_to_excel.entity.ErrorLog;
  */
 public class ExcelParser {
 
-
-	private HSSFWorkbook workBook = new HSSFWorkbook();
+	public static HSSFWorkbook workBook = new HSSFWorkbook();
 	private HSSFSheet sheet;
 	private HSSFRow row;
-	
-	
-	public void writeExcel(List<ErrorLog> list, String testSuiteName){
-		 	this.sheet = workBook.createSheet(testSuiteName);
-			createRow(0);
-			addTwoValueInExcel(testSuiteName, Integer.toString(list.get(0).getValueOfFallingTest()));
-			
-		for(int i = 0; i < list.size(); i++){
-			createRow(i+1);
-			addTwoValueInExcel(list.get(i).getTestCaseName(), list.get(i).getErrorMsg());			
+	private String testSuiteName;
+
+	public void writeExcel(List<ErrorLog> list, String testSuiteName) {
+		setTestSuiteName(testSuiteName);
+		// this.sheet = workBook.createSheet(testSuiteName);
+		createRow(0);
+		addTwoValueInExcel(testSuiteName, Integer.toString(list.get(0).getValueOfFallingTest()));
+
+		for (int i = 0; i < list.size(); i++) {
+			createRow(i + 1);
+			addTwoValueInExcel(list.get(i).getTestCaseName(), list.get(i).getErrorMsg());
 		}
-		
+
 		writeDataToFile();
-		
-		try {
-			workBook.close();
-		} catch (IOException e) {							//need to create method
-			System.out.println("is no open book");
-		}
-	
-		
+
+	//	try {
+	//		workBook.close();
+	//	} catch (IOException e) { // need to create method
+	//		System.out.println("is no open book");
+	//	}
+//
 	}
-	
-	private File createFile(){
-		
+
+	private File createFile() {
+
 		return new File("src\\main\\resources\\excelReport2.xls");
 	}
-	
-	private void writeDataToFile(){
-		
+
+	private void writeDataToFile() {
+
 		try {
-			
+
 			FileOutputStream writer = new FileOutputStream("src\\main\\resources\\excelReport2.xls", true);
 			workBook.write(writer);
 		} catch (FileNotFoundException e) {
@@ -68,29 +67,52 @@ public class ExcelParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
-	
 
-	private HSSFRow getRow(){
+	}
+
+	private HSSFRow getRow() {
 		return row;
 	}
-	
-	private void createRow(int num){	
-		row = sheet.createRow(num);	
-	}
-	
-	private HSSFCell createFirstCell(){
-		return getRow().createCell(1);	
-	}	
-	private HSSFCell createSecondCell(){
-		return getRow().createCell(2);		
-	}
-	
 
-	private void addTwoValueInExcel(String key, String value){		
-		createFirstCell().setCellValue(key);
-		createSecondCell().setCellValue(value);				
+	private void createRow(int num) {
+		row = getCurrentSheet().createRow(num);
 	}
-	
+
+	private HSSFCell createFirstCell() {
+		return getRow().createCell(1);
+	}
+
+	private HSSFCell createSecondCell() {
+		return getRow().createCell(2);
+	}
+
+	private void addTwoValueInExcel(String key, String value) {
+		createFirstCell().setCellValue(key);
+		createSecondCell().setCellValue(value);
+	}
+
+	public HSSFSheet getCurrentSheet() {
+		// try{
+		// sheet = workBook.createSheet(getTestSuiteName());
+		// }
+		// catch(IllegalArgumentException e){
+		// sheet = workBook.getSheet(getTestSuiteName());
+		// }
+
+		if (sheet == null) {
+			sheet = workBook.createSheet(getTestSuiteName());
+		} else if (!getTestSuiteName().contains(sheet.getSheetName())) {
+			sheet = workBook.createSheet(getTestSuiteName());
+		}
+		return sheet;
+	}
+
+	private String getTestSuiteName() {
+		return testSuiteName;
+	}
+
+	private void setTestSuiteName(String testSuiteName) {
+		this.testSuiteName = testSuiteName;
+	}
+
 }

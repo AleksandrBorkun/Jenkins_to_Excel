@@ -33,6 +33,9 @@ public class BasePage {
 	@FindBy(xpath = "//tr[3]/td[@style='vertical-align:middle']")
 	private WebElement sizeOfFallingTest;
 	
+	@FindBy(xpath = "//tr[@class = 'build-row  single-line overflow-checked'][1]/td/div[2]/a")
+	private WebElement lastJobButton;
+	
 	WebElement currentJobName;
 	
 	protected JS_Executor jsExecutor;
@@ -83,6 +86,12 @@ public class BasePage {
 		ErrorList.addErrorToList(errorLog);
 	}
 	
+	public void openLastJob(){
+		
+	//	wait.waitForElementIsClickable(lastJobButton);
+		lastJobButton.click();
+		
+	}
 	
 	
 }
