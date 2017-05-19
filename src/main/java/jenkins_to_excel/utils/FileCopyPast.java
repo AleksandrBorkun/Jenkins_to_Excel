@@ -11,7 +11,7 @@ import org.apache.commons.io.FileUtils;
 
 
 public class FileCopyPast {
-	
+	//1 2 2 1 1 2 
 	   public static void copy(File source, File dest) throws IOException {
 	        FileUtils.copyFile(source, dest);
 	    }
